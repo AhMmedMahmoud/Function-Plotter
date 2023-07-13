@@ -13,7 +13,6 @@ Python GUI program that plots arbitrary user-entered function using [PySide2](ht
 pip install PySide2
 pip install numpy
 pip install matplotlib
-pip install os-sys
 ```
 * Testing Requirments
 ```python
