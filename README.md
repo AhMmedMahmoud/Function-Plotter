@@ -13,6 +13,7 @@ plots arbitrary user-entered function
 5. Apply appropriate input validation to the user input.
 6. Display messages to the user to explain any wrong input.
 ## Output
+![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/6a77be90-74e7-426a-80f0-ae8381b892fe)
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/424e3ae4-6f09-422f-a771-baf2603b225a)
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/521b9d71-1ee3-4d6b-b17b-83946ea126fd)
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/814af8b6-1ba5-449d-b884-2a46df80e3e1)
