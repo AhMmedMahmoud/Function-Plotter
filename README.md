@@ -17,10 +17,6 @@ plots arbitrary user-entered function
 ## Demonstration
 [here](https://drive.google.com/file/d/10SFa9VwcOm5OibtIMCH5IV0c51rp6eFK/view?usp=sharing)
 
-
-# Function Plotter
-
-
 ## Requirments
 * App Requirments 
 ```python
@@ -35,7 +31,6 @@ pip install pytest-qt
 ```
 
 ## Usage
-
 * Run [app.py](app.py) file.
 ```python
 python app.py
