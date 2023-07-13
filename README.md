@@ -8,7 +8,7 @@ Python GUI program that plots arbitrary user-entered function using [PySide2](ht
 </p>
 
 ## Requirments
-* App requirments 
+* App Requirments 
 ```python
 pip install PySide2
 pip install numpy
