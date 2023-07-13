@@ -20,6 +20,9 @@ plots arbitrary user-entered function
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/03b03c2d-9755-4856-b5bb-02d3596b9b7e)
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/b8c5a08c-7a50-4385-84b7-3c21fc1b4919)
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/5705a7a2-5410-432b-b20d-0f1559b48ceb)
+![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/7b85138a-b655-4281-8156-2ca89fc3ec97)
+![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/3cd42004-8449-4da5-ba6d-03abdba49d54)
+![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/a03da372-7f41-40a8-8c70-1d55a8c96d0d)
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/acf2cb17-80ee-4cd6-bf99-5cb0fdb4d877)
 
 ## Demonstration
