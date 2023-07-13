@@ -4,12 +4,12 @@
 Python GUI program that plots arbitrary user-entered function using PySide2.
 
 # Requirments
-App requirments
+- App requirments
 pip install PySide2
 pip install numpy
 pip install matplotlib
 pip install os-sys
-Testing Requirments
+- Testing Requirments
 pip install pytest
 pip install pytest-qt
 
