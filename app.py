@@ -6,6 +6,9 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from enum import Enum
 
+"""
+    this class used to indicate errors in user input
+"""
 class ErrorState(Enum):
     OK = 0
     INVALID_FUNCTION = 1
@@ -22,11 +25,10 @@ class MainWindow(QWidget):
         # set App name
         self.setWindowTitle("Function Plotter")
 
-
-
+        # set App icon
         self.setWindowIcon(QIcon("icon.png"))
 
-        #################### layout 1 #################################
+        # layout 1
         self.label_EnterEquation = QLabel("Enter equation")
         self.lineEdit_equation = QLineEdit()
 
@@ -35,7 +37,7 @@ class MainWindow(QWidget):
         self.hlayout1.addWidget(self.lineEdit_equation)
 
 
-        #################### layout 2 #################################
+        # layout 2
         self.label_EnterMinValue = QLabel("Enter min value")
         self.lineEdit_minValue = QLineEdit()
 
@@ -44,7 +46,7 @@ class MainWindow(QWidget):
         self.hlayout2.addWidget(self.lineEdit_minValue)
 
 
-        #################### layout 3 #################################
+        # layout 3
         self.label_EnterMaxValue = QLabel("Enter max value")
         self.lineEdit_maxValue = QLineEdit()
 
@@ -53,7 +55,7 @@ class MainWindow(QWidget):
         self. hlayout3.addWidget(self.lineEdit_maxValue)
 
 
-        #################### layout 4 #################################
+        # layout 4
         self.button_plot = QPushButton("Plot")
         self.button_plot.clicked.connect(self.plotting)
 
@@ -61,7 +63,7 @@ class MainWindow(QWidget):
         self.hlayout4.addWidget(self.button_plot)
 
 
-        #################### layout 5 #################################
+        # layout 5
         self.figure = Figure()
         self.canvas = FigureCanvas(self.figure)
 
@@ -69,7 +71,7 @@ class MainWindow(QWidget):
         self.hlayout5.addWidget(self.canvas)
 
 
-        #################### layouts  #################################
+        # layouts
         self.layout = QVBoxLayout()
         self.layout.addLayout(self.hlayout1)
         self.layout.addLayout(self.hlayout2)
@@ -78,6 +80,7 @@ class MainWindow(QWidget):
         self.layout.addLayout(self.hlayout5)
 
         self.setLayout(self.layout)
+
 
     """
     this function is used to read data from user
@@ -88,12 +91,22 @@ class MainWindow(QWidget):
         equation = self.lineEdit_equation.text()
         return minValue, maxValue, equation
 
+
+    """
+        this function is used to replace the following
+         ^ with **
+         sin with np.sin
+         cos with np.cos
+         tan with np.tan
+    """
     def processInput(self,equation):
         equation = equation.replace('^', '**')
         equation = equation.replace('sin', 'np.sin')
         equation = equation.replace('cos', 'np.cos')
         equation = equation.replace('tan', 'np.tan')
         return equation
+
+
     """
     this function is used to disolay error to user
     """
@@ -102,6 +115,7 @@ class MainWindow(QWidget):
         msg_box.setText(message)
         msg_box.setWindowTitle("Error")
         msg_box.exec_()
+
 
     """
         this function is used to validate user input
@@ -137,6 +151,10 @@ class MainWindow(QWidget):
         except:
             return ErrorState.INVALID_FUNCTION
 
+
+    """
+        this function is used to read data then process it then validate it then plot the figure
+    """
     def plotting(self):
         # read data
         minValue, maxValue, equation = self.inputRead()
@@ -174,13 +192,9 @@ class MainWindow(QWidget):
             self.canvas.draw()
 
 
-
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MainWindow()
     window.show()
 
     sys.exit(app.exec_())
-
-
