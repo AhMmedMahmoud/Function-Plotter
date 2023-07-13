@@ -17,6 +17,10 @@ plots arbitrary user-entered function
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/521b9d71-1ee3-4d6b-b17b-83946ea126fd)
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/814af8b6-1ba5-449d-b884-2a46df80e3e1)
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/1a7f7b1d-24a1-4a63-a760-6480ad25b4bd)
+![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/03b03c2d-9755-4856-b5bb-02d3596b9b7e)
+![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/b8c5a08c-7a50-4385-84b7-3c21fc1b4919)
+![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/5705a7a2-5410-432b-b20d-0f1559b48ceb)
+![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/acf2cb17-80ee-4cd6-bf99-5cb0fdb4d877)
 
 ## Demonstration
 [here](https://drive.google.com/file/d/10SFa9VwcOm5OibtIMCH5IV0c51rp6eFK/view?usp=sharing)
