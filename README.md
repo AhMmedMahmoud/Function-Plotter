@@ -27,7 +27,7 @@ plots arbitrary user-entered function.
 ![image](https://github.com/AhMmedMahmoud/Function-Plotter/assets/104006521/acf2cb17-80ee-4cd6-bf99-5cb0fdb4d877)
 
 ## Demonstration
-[here](https://drive.google.com/file/d/10SFa9VwcOm5OibtIMCH5IV0c51rp6eFK/view?usp=sharing)
+[here](https://drive.google.com/file/d/12FxyGjwCZvZFZ-VcZ-CdAiSJNpkCr3BA/view?usp=sharing)
 
 ## Requirements
 * App Requirements 
@@ -49,5 +49,5 @@ python app.py
 ```
 * In case of testing, run [test.py](test.py) file.
 ```python
-pytest test_app.py
+pytest test.py
 ```
