@@ -43,6 +43,10 @@ pip install pytest-qt
 ```
 
 ## Usage
+* Using exe file
+- go to Demostration Section
+- click on here
+- download file
 * Run [app.py](app.py) file.
 ```python
 python app.py
