@@ -6,6 +6,7 @@ from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
 from matplotlib.figure import Figure
 from enum import Enum
 
+
 """
     this class used to indicate errors in user input
 """
@@ -108,7 +109,7 @@ class MainWindow(QWidget):
 
 
     """
-    this function is used to disolay error to user
+    this function is used to display error to user
     """
     def displayError(self,message):
         msg_box = QMessageBox()
@@ -118,29 +119,49 @@ class MainWindow(QWidget):
 
 
     """
-        this function is used to validate user input
+           this function is used to validate minValue entered by user
     """
-    def inputValidation(self,minValue, maxValue, function_str):
-        # check minValue
+    def minValueValidation(self,minValue):
         if minValue == '':
             return ErrorState.EMPTY_MIN_VALUE
         else:
             try:
                 minValue = float(minValue)
+                return ErrorState.OK
             except ValueError:
                 return ErrorState.INVALID_MIN_VALUE
 
-        # check maxValue
+
+    """
+          this function is used to validate maxValue entered by user
+    """
+    def maxValueValidation(self, maxValue):
         if maxValue == '':
             return ErrorState.EMPTY_MAX_VALUE
         else:
             try:
                 maxValue = float(maxValue)
+                return ErrorState.OK
             except ValueError:
                 return ErrorState.INVALID_MAX_VALUE
 
+
+    """
+        this function is used to validate user input
+    """
+    def inputValidation(self,minValue, maxValue, function_str):
+        # check minValue
+        isValid = self.minValueValidation(minValue)
+        if isValid != ErrorState.OK:
+            return isValid
+
+        # check maxValue
+        isValid = self.maxValueValidation(maxValue)
+        if isValid != ErrorState.OK:
+            return isValid
+
         # check maxValue and minValue
-        if minValue >= maxValue:
+        if float(minValue) >= float(maxValue):
             return ErrorState.MIN_VALUE_ISNOT_LESS_THAN_MAX_VALUE
 
         # check function
@@ -163,32 +184,33 @@ class MainWindow(QWidget):
         equation = self.processInput(equation)
 
         # check data
-        if self.inputValidation(minValue, maxValue, equation) == ErrorState.EMPTY_MIN_VALUE:
+        isValid = self.inputValidation(minValue, maxValue, equation)
+        if isValid == ErrorState.EMPTY_MIN_VALUE:
             self.displayError("Please enter minimum x")
-        elif self.inputValidation(minValue, maxValue, equation) == ErrorState.EMPTY_MAX_VALUE:
+        elif isValid == ErrorState.EMPTY_MAX_VALUE:
             self.displayError("Please enter Maximum x")
-        elif self.inputValidation(minValue, maxValue, equation) == ErrorState.INVALID_MIN_VALUE:
+        elif isValid == ErrorState.INVALID_MIN_VALUE:
             self.displayError("Minimum x value must be a number")
             self.lineEdit_minValue.clear()
-        elif self.inputValidation(minValue, maxValue, equation) == ErrorState.INVALID_MAX_VALUE:
+        elif isValid == ErrorState.INVALID_MAX_VALUE:
             self.displayError("Maximum x value must be a number")
             self.lineEdit_maxValue.clear()
-        elif self.inputValidation(minValue, maxValue, equation) == ErrorState.MIN_VALUE_ISNOT_LESS_THAN_MAX_VALUE:
+        elif isValid == ErrorState.MIN_VALUE_ISNOT_LESS_THAN_MAX_VALUE:
             self.displayError("Maximum x value must be greater than Minimum x value")
             self.lineEdit_minValue.clear()
             self.lineEdit_maxValue.clear()
-        elif self.inputValidation(minValue, maxValue, equation) == ErrorState.INVALID_FUNCTION:
+        elif isValid == ErrorState.INVALID_FUNCTION:
             self.displayError("Invalid function")
             self.lineEdit_equation.clear()
         else:
             x = np.linspace(float(minValue), float(maxValue), 1000)
             y = eval(equation)
             self.figure.clear()
-
+            mask = ~(np.isnan(y) | np.isinf(y))
             # Add a plot to the figure
             ax = self.figure.add_subplot(111)
             ax.set(title="Function Plotting", xlabel=r'$x$', ylabel=r'$f(x)$')
-            ax.plot(x, y)
+            ax.plot(x[mask], y[mask])       # ax.plot(x, y)
             self.canvas.draw()
 
 
