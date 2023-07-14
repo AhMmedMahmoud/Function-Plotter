@@ -1,5 +1,5 @@
 # Function Plotter
-- This project is for Master Micro Company.
+- This task is for Master Micro Company.
 - Language: Python
 - Development environment: PyCharm
 - Project type: Desktop Application
