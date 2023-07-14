@@ -47,7 +47,7 @@ pip install pytest-qt
 ```python
 python app.py
 ```
-* In case of testing, run [test_app.py](test_app.py) file.
+* In case of testing, run [test.py](test.py) file.
 ```python
 pytest test_app.py
 ```
