@@ -43,7 +43,7 @@ pip install pytest-qt
 ```
 
 ## Usage
-* Using exe file
+# Using exe file
 - go to Demostration Section
 - click on here
 - download file
