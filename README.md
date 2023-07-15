@@ -14,11 +14,15 @@ plots arbitrary user-entered function.
 6. Display messages to the user to explain any wrong input.
 
 ## Extra Features
-1. support sin , cos, tan, sqrt, e
-2. user can enter constant instead of function of x
+1. support sin , cos, tan, sqrt and e
+2. user can enter constant instead of expression of x
 3. user can enter function in any one of this forms
     - y = expression
-    - expression   
+    - expression
+4. add features provided by NavigationToolbar2QT like
+    - saving the plot to a file
+    - panning and zooming the plot
+    - resetting the view
 ## Demonstration
 [here](https://drive.google.com/file/d/12FxyGjwCZvZFZ-VcZ-CdAiSJNpkCr3BA/view?usp=sharing)
 
