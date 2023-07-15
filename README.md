@@ -14,7 +14,8 @@ plots arbitrary user-entered function.
 6. Display messages to the user to explain any wrong input.
 
 ## Extra Features
-- support sin , cos and tan
+- support sin , cos, tan and sqrt
+- user can enter constant instead of function of x
   
 ## Demonstration
 [here](https://drive.google.com/file/d/12FxyGjwCZvZFZ-VcZ-CdAiSJNpkCr3BA/view?usp=sharing)
