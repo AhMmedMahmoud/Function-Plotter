@@ -17,8 +17,8 @@ plots arbitrary user-entered function.
 1. support sin , cos, tan, sqrt, e
 2. user can enter constant instead of function of x
 3. user can enter function in any one of this forms
-- y = expression
-- expression   
+  - y = expression
+  - expression   
 ## Demonstration
 [here](https://drive.google.com/file/d/12FxyGjwCZvZFZ-VcZ-CdAiSJNpkCr3BA/view?usp=sharing)
 
