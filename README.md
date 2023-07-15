@@ -24,7 +24,7 @@ plots arbitrary user-entered function.
     - panning and zooming the plot
     - resetting the view
 ## Demonstration
-[here](https://drive.google.com/file/d/12FxyGjwCZvZFZ-VcZ-CdAiSJNpkCr3BA/view?usp=sharing)
+[here](https://drive.google.com/file/d/1NvYadkpnIm-0tLZmHUxcm9urJ7rjyhaz/view?usp=sharing)
 
 ## Requirements
 * App Requirements 
