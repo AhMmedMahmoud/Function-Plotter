@@ -57,7 +57,8 @@ def test_maxValueValidation(main_window, qtbot, value, valid):
     ('x^2 + sin(x) + cos(x) + tan(x)', 'x**2 + np.sin(x) + np.cos(x) + np.tan(x)'),
     ('sin(x) + cos(x) + tan(x)', 'np.sin(x) + np.cos(x) + np.tan(x)'),
     ('x^3', 'x**3'),
-    ('x^2 + 3x + 2', 'x**2 + 3x + 2')
+    ('x^2 + 3x + 2', 'x**2 + 3x + 2'),
+    ('sqrt(x) + 4', 'np.sqrt(x) + 4')
 ])
 def test_processInput(main_window, qtbot, value, valid):
     assert main_window.processInput(value) == valid
@@ -65,6 +66,7 @@ def test_processInput(main_window, qtbot, value, valid):
 
 # test inputValidation function
 @pytest.mark.parametrize("minValue, maxValue, equation, valid", [
+    ('-5', '5', '4', ErrorState.OK),
     ('-10', '10', 'x**2 + np.sin(x) + np.cos(x) + np.tan(x)', ErrorState.OK),
     ('-10', '10', 'x**3', ErrorState.OK),
     ('-10', '10', 'x**2 + 3x + 2', ErrorState.INVALID_FUNCTION),

@@ -30,7 +30,7 @@ class MainWindow(QWidget):
         self.setWindowIcon(QIcon("icon.png"))
 
         # layout 1
-        self.label_EnterEquation = QLabel("Enter equation")
+        self.label_EnterEquation = QLabel("Equation")
         self.lineEdit_equation = QLineEdit()
 
         self.hlayout1 = QHBoxLayout()
@@ -39,7 +39,7 @@ class MainWindow(QWidget):
 
 
         # layout 2
-        self.label_EnterMinValue = QLabel("Enter min value")
+        self.label_EnterMinValue = QLabel("Min   x   ")
         self.lineEdit_minValue = QLineEdit()
 
         self.hlayout2 = QHBoxLayout()
@@ -48,7 +48,7 @@ class MainWindow(QWidget):
 
 
         # layout 3
-        self.label_EnterMaxValue = QLabel("Enter max value")
+        self.label_EnterMaxValue = QLabel("Max   x  ")
         self.lineEdit_maxValue = QLineEdit()
 
         self.hlayout3 = QHBoxLayout()
@@ -99,12 +99,20 @@ class MainWindow(QWidget):
          sin with np.sin
          cos with np.cos
          tan with np.tan
+         sqrt with np.sqrt
+         and to handle constant functions e.g., y = 1    
     """
     def processInput(self,equation):
+        # preform replacements
         equation = equation.replace('^', '**')
         equation = equation.replace('sin', 'np.sin')
         equation = equation.replace('cos', 'np.cos')
         equation = equation.replace('tan', 'np.tan')
+        equation = equation.replace('sqrt', 'np.sqrt')
+        # to deal with constant functions e.g., y = 1
+        if "x" not in equation:
+            equation = f"{equation}+0*x"
+
         return equation
 
 
@@ -186,17 +194,17 @@ class MainWindow(QWidget):
         # check data
         isValid = self.inputValidation(minValue, maxValue, equation)
         if isValid == ErrorState.EMPTY_MIN_VALUE:
-            self.displayError("Please enter minimum x")
+            self.displayError("Please enter min x")
         elif isValid == ErrorState.EMPTY_MAX_VALUE:
-            self.displayError("Please enter Maximum x")
+            self.displayError("Please enter max x")
         elif isValid == ErrorState.INVALID_MIN_VALUE:
-            self.displayError("Minimum x value must be a number")
+            self.displayError("min x value must be a number")
             self.lineEdit_minValue.clear()
         elif isValid == ErrorState.INVALID_MAX_VALUE:
-            self.displayError("Maximum x value must be a number")
+            self.displayError("max x value must be a number")
             self.lineEdit_maxValue.clear()
         elif isValid == ErrorState.MIN_VALUE_ISNOT_LESS_THAN_MAX_VALUE:
-            self.displayError("Maximum x value must be greater than Minimum x value")
+            self.displayError("max x value must be greater than min x value")
             self.lineEdit_minValue.clear()
             self.lineEdit_maxValue.clear()
         elif isValid == ErrorState.INVALID_FUNCTION:
