@@ -3,6 +3,8 @@ import numpy as np
 from PySide2.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QMessageBox, QHBoxLayout, QVBoxLayout
 from PySide2.QtGui import QIcon
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+from matplotlib.backends.backend_qt5agg import NavigationToolbar2QT
+
 from matplotlib.figure import Figure
 from enum import Enum
 
@@ -18,6 +20,7 @@ class ErrorState(Enum):
     INVALID_MAX_VALUE = 4
     EMPTY_MAX_VALUE = 5
     MIN_VALUE_ISNOT_LESS_THAN_MAX_VALUE = 6
+    EMPTY_FUNCTION = 7
 
 class MainWindow(QWidget):
     def __init__(self):
@@ -29,57 +32,61 @@ class MainWindow(QWidget):
         # set App icon
         self.setWindowIcon(QIcon("icon.png"))
 
-        # layout 1
+        ################### components #######################
         self.label_EnterEquation = QLabel("Equation")
         self.lineEdit_equation = QLineEdit()
 
+        self.label_EnterMinValue = QLabel("Min   x   ")
+        self.lineEdit_minValue = QLineEdit()
+
+        self.label_EnterMaxValue = QLabel("Max   x  ")
+        self.lineEdit_maxValue = QLineEdit()
+
+        self.button_plot = QPushButton("Plot")
+        self.button_plot.clicked.connect(self.plotting)
+
+        self.figure = Figure()
+        self.canvas = FigureCanvas(self.figure)
+        self.toolBar = NavigationToolbar2QT(self.canvas)
+        self.toolBar.setVisible(False)
+
+
+        ################## layouts ###########################
+        # layout 1
         self.hlayout1 = QHBoxLayout()
         self.hlayout1.addWidget(self.label_EnterEquation)
         self.hlayout1.addWidget(self.lineEdit_equation)
 
-
         # layout 2
-        self.label_EnterMinValue = QLabel("Min   x   ")
-        self.lineEdit_minValue = QLineEdit()
-
         self.hlayout2 = QHBoxLayout()
         self.hlayout2.addWidget(self.label_EnterMinValue)
         self.hlayout2.addWidget(self.lineEdit_minValue)
 
-
         # layout 3
-        self.label_EnterMaxValue = QLabel("Max   x  ")
-        self.lineEdit_maxValue = QLineEdit()
-
         self.hlayout3 = QHBoxLayout()
         self.hlayout3.addWidget(self.label_EnterMaxValue)
         self. hlayout3.addWidget(self.lineEdit_maxValue)
 
-
         # layout 4
-        self.button_plot = QPushButton("Plot")
-        self.button_plot.clicked.connect(self.plotting)
-
         self.hlayout4 = QHBoxLayout()
         self.hlayout4.addWidget(self.button_plot)
 
-
         # layout 5
-        self.figure = Figure()
-        self.canvas = FigureCanvas(self.figure)
+        self.hlayout5 = QVBoxLayout()
+        self.hlayout5.addWidget(self.toolBar)
 
-        self.hlayout5 = QHBoxLayout()
-        self.hlayout5.addWidget(self.canvas)
+        # layout 6
+        self.hlayout6 = QHBoxLayout()
+        self.hlayout6.addWidget(self.canvas)
 
-
-        # layouts
+        #  main layout
         self.layout = QVBoxLayout()
         self.layout.addLayout(self.hlayout1)
         self.layout.addLayout(self.hlayout2)
         self.layout.addLayout(self.hlayout3)
         self.layout.addLayout(self.hlayout4)
         self.layout.addLayout(self.hlayout5)
-
+        self.layout.addLayout(self.hlayout6)
         self.setLayout(self.layout)
 
 
@@ -94,13 +101,19 @@ class MainWindow(QWidget):
 
 
     """
-        this function is used to replace the following
-         ^ with **
-         sin with np.sin
-         cos with np.cos
-         tan with np.tan
-         sqrt with np.sqrt
-         and to handle constant functions e.g., y = 1    
+        this function is used to preform replacements, handle constant functions and handle writing equation as y = 
+           like
+               ^ with **
+               sin with np.sin
+               cos with np.cos
+               tan with np.tan
+               sqrt with np.sqrt
+          like 
+               y = 1
+               y = 5 
+          like 
+               y = x
+               y = 4*x + 1
     """
     def processInput(self,equation):
         # preform replacements
@@ -109,9 +122,15 @@ class MainWindow(QWidget):
         equation = equation.replace('cos', 'np.cos')
         equation = equation.replace('tan', 'np.tan')
         equation = equation.replace('sqrt', 'np.sqrt')
-        # to deal with constant functions e.g., y = 1
+        equation = equation.replace('e', str(np.e))
+
+        # handle constant functions
         if "x" not in equation:
             equation = f"{equation}+0*x"
+
+        # handle writing equation  as y =
+        if equation.startswith('y =') or equation.startswith('y='):
+            equation = equation[3:]
 
         return equation
 
@@ -158,6 +177,16 @@ class MainWindow(QWidget):
         this function is used to validate user input
     """
     def inputValidation(self,minValue, maxValue, function_str):
+        # check function
+        if function_str == '+0*x':
+            return ErrorState.EMPTY_FUNCTION
+        else:
+            try:
+                x = np.linspace(-10, 10, 1000)
+                y = eval(function_str)
+            except:
+                return ErrorState.INVALID_FUNCTION
+
         # check minValue
         isValid = self.minValueValidation(minValue)
         if isValid != ErrorState.OK:
@@ -172,13 +201,7 @@ class MainWindow(QWidget):
         if float(minValue) >= float(maxValue):
             return ErrorState.MIN_VALUE_ISNOT_LESS_THAN_MAX_VALUE
 
-        # check function
-        try:
-            x = np.linspace(float(minValue), float(maxValue), 1000)
-            y = eval(function_str)
-            return ErrorState.OK
-        except:
-            return ErrorState.INVALID_FUNCTION
+        return ErrorState.OK
 
 
     """
@@ -193,13 +216,18 @@ class MainWindow(QWidget):
 
         # check data
         isValid = self.inputValidation(minValue, maxValue, equation)
-        if isValid == ErrorState.EMPTY_MIN_VALUE:
+        if isValid == ErrorState.EMPTY_FUNCTION:
+            self.displayError("please enter function")
+        elif isValid == ErrorState.INVALID_FUNCTION:
+            self.displayError("Invalid function")
+            self.lineEdit_equation.clear()
+        elif isValid == ErrorState.EMPTY_MIN_VALUE:
             self.displayError("Please enter min x")
-        elif isValid == ErrorState.EMPTY_MAX_VALUE:
-            self.displayError("Please enter max x")
         elif isValid == ErrorState.INVALID_MIN_VALUE:
             self.displayError("min x value must be a number")
             self.lineEdit_minValue.clear()
+        elif isValid == ErrorState.EMPTY_MAX_VALUE:
+            self.displayError("Please enter max x")
         elif isValid == ErrorState.INVALID_MAX_VALUE:
             self.displayError("max x value must be a number")
             self.lineEdit_maxValue.clear()
@@ -207,11 +235,9 @@ class MainWindow(QWidget):
             self.displayError("max x value must be greater than min x value")
             self.lineEdit_minValue.clear()
             self.lineEdit_maxValue.clear()
-        elif isValid == ErrorState.INVALID_FUNCTION:
-            self.displayError("Invalid function")
-            self.lineEdit_equation.clear()
-        else:
+        elif isValid == ErrorState.OK:
             # plotting
+            self.toolBar.setVisible(True)
             x = np.linspace(float(minValue), float(maxValue), 1000)
             y = eval(equation)
             self.figure.clear()
