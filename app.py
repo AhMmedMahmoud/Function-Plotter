@@ -211,6 +211,7 @@ class MainWindow(QWidget):
             self.displayError("Invalid function")
             self.lineEdit_equation.clear()
         else:
+            # plotting
             x = np.linspace(float(minValue), float(maxValue), 1000)
             y = eval(equation)
             self.figure.clear()
