@@ -1,7 +1,7 @@
 import pytest
 from PySide2.QtWidgets import QApplication
-from app import MainWindow, ErrorState
-
+from Plotter import MainWindow, ErrorState
+import numpy as np
 
 @pytest.fixture(scope="session", autouse=True)
 def setup_qt():
@@ -58,7 +58,11 @@ def test_maxValueValidation(main_window, qtbot, value, valid):
     ('sin(x) + cos(x) + tan(x)', 'np.sin(x) + np.cos(x) + np.tan(x)'),
     ('x^3', 'x**3'),
     ('x^2 + 3x + 2', 'x**2 + 3x + 2'),
-    ('sqrt(x) + 4', 'np.sqrt(x) + 4')
+    ('sqrt(x) + 4', 'np.sqrt(x) + 4'),
+    ('e^x', 'np.e**x'),
+    ('y = x', 'x'),
+    ('y= x + 4', 'x + 4'),
+    ('y= sin(x) + 1', 'np.sin(x) + 1'),
 ])
 def test_processInput(main_window, qtbot, value, valid):
     assert main_window.processInput(value) == valid
