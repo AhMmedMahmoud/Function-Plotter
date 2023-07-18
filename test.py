@@ -60,9 +60,10 @@ def test_maxValueValidation(main_window, qtbot, value, valid):
     ('x^2 + 3x + 2', 'x**2 + 3x + 2'),
     ('sqrt(x) + 4', 'np.sqrt(x) + 4'),
     ('e^x', 'np.e**x'),
-    ('y = x', 'x'),
-    ('y= x + 4', 'x + 4'),
-    ('y= sin(x) + 1', 'np.sin(x) + 1'),
+    ('y = x', ' x'),
+    ('y =x', 'x'),
+    ('y= x + 4', ' x + 4'),
+    ('y =sin(x) + 1', 'np.sin(x) + 1'),
 ])
 def test_processInput(main_window, qtbot, value, valid):
     assert main_window.processInput(value) == valid

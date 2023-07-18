@@ -134,9 +134,9 @@ class MainWindow(QWidget):
 
         # handle writing equation  as y =
         if equation.startswith('y ='):
-            equation = equation[4:]
-        elif equation.startswith('y='):
             equation = equation[3:]
+        elif equation.startswith('y='):
+            equation = equation[2:]
 
         return equation
 
