@@ -46,9 +46,9 @@ pip install pytest-qt
 - click on here
 - download file
 ```
-* Run [app.py](app.py) file.
+* Run [Plotter.py](Plotter.py) file.
 ```python
-python app.py
+python Plotter.py
 ```
 * In case of testing, run [test.py](test.py) file.
 ```python
